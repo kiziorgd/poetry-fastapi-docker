@@ -75,7 +75,7 @@ To run testing/linting locally you would run lint/test in the [scripts directory
 Build images with:
 
 ```shell
-docker build -t poetry-project .
+docker build -t web .
 ```
 
 The Dockerfile uses multi-stage builds to run lint and test stages before building the production stage.
@@ -84,19 +84,19 @@ If linting or testing fails the build will fail.
 You can stop the build at specific stages with the `--target` option:
 
 ```shell
-docker build -t poetry-project --target $STAGE .
+docker build -t web --target $STAGE .
 ```
 
 For example we wanted to stop at the **test** stage:
 
 ```shell
-docker build -t poetry-project --target test .
+docker build -t web --target test .
 ```
 
 We could then get a shell inside the container with:
 
 ```shell
-docker run -it poetry-project bash
+docker run -it web bash
 ```
 
 If you do not specify a target the resulting image will be the last image defined which in our case is the 'production' image.
@@ -104,7 +104,7 @@ If you do not specify a target the resulting image will be the last image define
 Run the 'production' image:
 
 ```shell
-docker run -it -p 8000:8000 poetry-project
+docker run -it -p 8000:8000 web
 ```
 
 Open your browser and go to [http://localhost:8000/redoc](http://localhost:8000/redoc) to see the API spec in ReDoc.
