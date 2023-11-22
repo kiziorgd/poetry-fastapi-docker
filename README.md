@@ -60,7 +60,7 @@ poetry shell
 Start a development server locally:
 
 ```shell
-poetry run uvicorn app.main:app --reload --host localhost --port 8000
+poetry run uvicorn src.app.main:app --reload --host localhost --port 8000
 ```
 
 API will be available at [localhost:8000/](http://localhost:8000/)

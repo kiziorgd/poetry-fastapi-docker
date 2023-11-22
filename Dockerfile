@@ -17,6 +17,10 @@ ENV PYTHONUNBUFFERED=1 \
 
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
+RUN useradd -m coder
+RUN adduser coder sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 # builder-base is used to build dependencies
 FROM python-base AS builder-base
 RUN buildDeps="build-essential" \
@@ -59,6 +63,8 @@ WORKDIR $PYSETUP_PATH
 RUN poetry install
 
 WORKDIR /src
+RUN chown coder /src
+USER coder
 COPY . .
 
 EXPOSE 8000
